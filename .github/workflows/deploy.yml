@@ -9,9 +9,9 @@ jobs:
       - name: Build image
         run: |
           docker build -t myapp:latest .
-          - name: Sign in to Azure
-          uses: azure/login@v2
-          with:
+      - name: Sign in to Azure
+        uses: azure/login@v2
+        with:
           creds: ${{secrets.AZURE_CREDENTIALS}}
       - name: Push to ACR
         run: |
@@ -23,7 +23,7 @@ jobs:
           az webapp config container set \
           -g RGLabDeploy-arshad \
           -n labdeploy-webapp-arshad \
-          --container-image-name labdeployacr.azurecr.io/myapp:latest \
+          -image-name labdeployacr.azurecr.io/myapp:latest \
           --container-registry-url https://labdeployacr.azurecr.io \
           --container-registry-user ${{secrets.ACR_USER}} \
           --container-registry-password ${{secrets.ACR_PWD}}
